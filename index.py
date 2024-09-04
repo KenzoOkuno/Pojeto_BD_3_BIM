@@ -5,28 +5,61 @@ from bson.objectid import ObjectId  # Importar para converter IDs
 uri = "mongodb+srv://Kenzo:123@brunao.u01owig.mongodb.net/?retryWrites=true&w=majority&appName=Brunao" 
 cliente = MongoClient(uri)
 
+def verificar_digito(info):
+    
+    if info.isdigit(): 
+        return 1 
+    else:
+        return 0 
+
 continuar = 0 #controlador do fluxo
 try:
     while continuar != 1:
         def cadastrar_aluno(colecao):
             nome_aluno = input('NOME COMPLETO DO ALUNO: ')
+
+            while verificar_digito(nome_aluno) == 1:
+                print('Nao e possivel cadastrar um aluno com numeros')
+                nome_aluno = input('NOME COMPLETO DO ALUNO: ')            
             matricula_aluno = input('MATRICULA: ')
+            verificar_digito(matricula_aluno)
+            while verificar_digito(matricula_aluno) == 0:
+                print('Nao e possivel cadastrar uma matricula com letras')
+                matricula_aluno = input('MATRICULA: ')
             curso = input('CURSO: ')
+            while verificar_digito(curso) == 1:
+                print('Nao e possivel cadastrar um curso com numeros')
+                curso = input('CURSO: ')
             aluno = {'nome': nome_aluno, 'matricula': matricula_aluno, 'curso': curso}
             colecao.insert_one(aluno)
             print("Aluno cadastrado com sucesso!")
 
         def cadastrar_professor(colecao):
             nome_professor = input('NOME COMPLETO DO PROFESSOR: ')
+            while verificar_digito(nome_professor) == 1:
+                print('Nao e possivel cadastrar um professor com numeros')
+                nome_professor = input('NOME COMPLETO DO PROFESSOR: ')
             departamento_professor = input('DEPARTAMENTO DO PROFESSOR: ')
+            while verificar_digito(departamento_professor) == 1:
+                print('Nao e possivel cadastrar um departamento com numeros')
+                departamento_professor = input('DEPARTAMENTO DO PROFESSOR: ')
             professor = {'nome do professor': nome_professor, 'departamento do professor': departamento_professor}
             colecao.insert_one(professor)
             print("Professor cadastrado com sucesso!")
 
         def cadastrar_disciplina(colecao):
             nome_disciplina = input('NOME DA DISCIPLINA: ')
+            while verificar_digito(nome_disciplina) == 1:
+                print('Nao e possivel cadastrar uma disciplina com numeros')
+                nome_disciplina = input('NOME DA DISCIPLINA: ')
             codigo_disciplina = input('CODIGO DA DISCIPLINA: ')
+            while verificar_digito(codigo_disciplina) == 0:
+                print('Nao e possivel cadastrar um codigo de disciplina com letras')
+                codigo_disciplina = input('CODIGO DA DISCIPLINA: ')
             professor_responsavel = input('PROFESSOR RESPONSAVEL: ')
+            while verificar_digito(professor_responsavel) == 1:
+                print('Nao e possivel cadastrar um professor com numeros')
+                professor_responsavel = input('PROFESSOR RESPONSAVEL: ')
             disciplina = {'nome da disciplina': nome_disciplina, 'codigo da disciplina': codigo_disciplina, 'professor responsavel': professor_responsavel}
             colecao.insert_one(disciplina)
             print("Disciplina cadastrada com sucesso!")
@@ -94,7 +127,8 @@ try:
                 else:
                     print("Documento inválido!")
             except Exception as e:
-                print(f'Erro ao atualizar o documento: {e}')
+                print(f'Erro ao atualizar o 2
+                : {e}')
 
     # Funções de mapeamento de opções
         def opcao_cadastro_aluno():
